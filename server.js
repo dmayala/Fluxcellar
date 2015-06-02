@@ -1,4 +1,5 @@
 import express from 'express';
+import multer from 'multer';
 import path from 'path';
 import favicon from 'serve-favicon';
 import logger from 'morgan';
@@ -6,6 +7,7 @@ import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 
 import routes from './routes';
+import * as wine from './routes/wines';
 
 const app = express();
 
@@ -19,9 +21,14 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, './public')));
+app.use(express.static(path.join(__dirname, './client/dist')));
 
 app.use('/', routes);
+app.get('/api/wines', wine.findAll);
+app.get('/api/wines/:id', wine.findById);
+app.post('/api/wines', [ multer({ dest: './client/dist/pics' }) ], wine.addWine);
+app.put('/api/wines/:id', [ multer({ dest: './client/dist/pics' }) ], wine.updateWine);
+app.delete('/api/wines/:id', wine.deleteWine);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
