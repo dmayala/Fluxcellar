@@ -28,7 +28,7 @@
     "browser-sync": "^2.6.4",
     "browserify": "^9.0.8",
     "debowerify": "^1.2.1",
-    "gulp": "^3.8.11",
+    "gulp": "^3.9.0",
     "gulp-babel": "^5.1.0",
     "gulp-nodemon": "^2.0.2",
     "gulp-notify": "^2.2.0",
