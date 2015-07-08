@@ -1,54 +1,51 @@
-import AppDispatcher from '../dispatcher/AppDispatcher'
-import Constants from '../constants/Constants'
 import APIUtils from '../utils/APIUtils';
 
-export default { 
+class WineActions { 
 
   loadWines() {
-    AppDispatcher.handleViewAction({
-      actionType: Constants.LOAD_WINES
+    let promise = APIUtils.loadWines();
+    promise.then((result) => {
+      this.dispatch(result);
     });
-    APIUtils.loadWines();
-  },
+    this.alt.resolve(promise);
+  }
 
   loadWine(id) {
-    AppDispatcher.handleViewAction({
-      actionType: Constants.LOAD_WINE,
-      id: id
-    }); 
-    APIUtils.loadWine(id);
-  },
+    let promise = APIUtils.loadWine(id);
+    promise.then((result) => {
+      this.dispatch(result);
+    });
+    this.alt.resolve(promise);
+  }
 
   updateWine(id, data, file) {
-    AppDispatcher.handleViewAction({
-      actionType: Constants.UPDATE_WINE,
-      data: data
-    }); 
-    APIUtils.updateWine(id, data, file);
-  },
+    let promise = APIUtils.updateWine(id, data, file);
+    promise.then((result) => {
+      this.dispatch(result);
+    });
+    this.alt.resolve(promise);
+  }
 
   addWine(data, file) {
-    AppDispatcher.handleViewAction({
-      actionType: Constants.ADD_WINE,
-      data: data
-    }); 
-    APIUtils.addWine(data, file);
-  },
+    let promise = APIUtils.addWine(data, file);
+    promise.then((result) => {
+      this.dispatch(result);
+    });
+    this.alt.resolve(promise);
+  }
 
   removeWine(id) {
-    AppDispatcher.handleViewAction({
-      actionType: Constants.REMOVE_WINE,
-      id: id
-    }); 
-    APIUtils.removeWine(id);
-  },
+    let promise = APIUtils.removeWine(id);
+    promise.then((result) => {
+      this.dispatch(result);
+    });
+    this.alt.resolve(promise);
+  }
 
   setCurrentPage(id) {
-    AppDispatcher.handleViewAction({
-      actionType: Constants.SET_CURRENT_PAGE,
-      id: id
-    }); 
+    this.dispatch(id);
   }
 
 }
 
+export default WineActions; 
