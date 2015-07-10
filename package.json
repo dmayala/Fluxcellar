@@ -17,7 +17,7 @@
     "mongodb": "^2.0.31",
     "morgan": "~1.5.1",
     "multer": "^0.1.8",
-    "react": "^0.13.2",
+    "react": "^0.13.3",
     "react-router": "^0.13.3",
     "serve-favicon": "~2.2.0",
     "whatwg-fetch": "^0.8.2"
