@@ -9,6 +9,11 @@ import bodyParser from 'body-parser';
 import routes from './routes';
 import * as wine from './routes/wines';
 
+import React from 'react';
+import Router from 'react-router';
+import reactRoutes from './client/src/js/router/routes';
+import Flux from './client/src/js/utils/flux';
+
 const app = express();
 
 // view engine setup
@@ -23,12 +28,29 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, './client/dist')));
 
-app.use('/', routes);
 app.get('/api/wines', wine.findAll);
 app.get('/api/wines/:id', wine.findById);
 app.post('/api/wines', [ multer({ dest: './client/dist/pics' }) ], wine.addWine);
 app.put('/api/wines/:id', [ multer({ dest: './client/dist/pics' }) ], wine.updateWine);
 app.delete('/api/wines/:id', wine.deleteWine);
+
+// react router config
+app.use((req, res, next) => {
+  let router = Router.create({ 
+    location: req.url,
+    routes: reactRoutes
+  });
+  const flux = new Flux();
+  router.run((Handler, state) => {
+    if (state.routes.length < 1) {
+      return next();  
+    }
+    flux.render(Handler, flux).then((content) => {
+      return res.render('index', { html: content.body });
+    }); 
+
+  });
+});
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
