@@ -1,6 +1,4 @@
 import React from 'react';
-import WineStore from '../../stores/WineStore';
-import WineActions from '../../actions/WineActions';
 const cx = React.addons.classSet;
 
 export class Form extends React.Component {
@@ -8,6 +6,10 @@ export class Form extends React.Component {
 
   static contextTypes = {
     router: React.PropTypes.func.isRequired
+  }
+
+  static propTypes = {
+    flux: React.PropTypes.object.isRequired
   }
 
   getState() {
@@ -20,15 +22,22 @@ export class Form extends React.Component {
     };
   }
 
-  componentDidMount() {
-    WineStore.addChangeListener(this._onChange);
+  componentWillMount() {
     if (this.context.router.getCurrentParams().id) {
-      WineActions.loadWine(this.props.params.id);
+      this.props.flux.getActions('wines').loadWine(this.props.params.id);
     }
   }
 
+  componentDidMount() {
+    this.props.flux
+              .getStore('wines')
+              .listen(this._onChange);
+  }
+
   componentWillUnmount() {
-    WineStore.removeChangeListener(this._onChange);
+    this.props.flux
+              .getStore('wines')
+              .unlisten(this._onChange);
   }
 
   onDragLeave = (e) => {
@@ -81,7 +90,7 @@ export class Form extends React.Component {
 
   _onDelete = (e) => {
     e.preventDefault();
-    WineActions.removeWine(this.state.wine._id);
+    this.props.flux.getActions('wines').removeWine(this.state.wine._id);
     this.context.router.transitionTo('wines');
   }
 
@@ -181,7 +190,7 @@ export class Form extends React.Component {
                 <div className="col-sm-4 col-md-4" onDragLeave={ this.onDragLeave} onDragOver={
                   this.onDragOver } onDrop={ this.onDrop } >
                   <div className="well" style={{ width: '250px', textAlign: 'center', margin: '0px auto' }}>
-                    <p><img id="picture" width="180" src={ this.state.previewImage || `pics/${wine.picture || 'generic.jpg' }`} /></p>
+                    <p><img id="picture" width="180" src={ this.state.previewImage || `/pics/${wine.picture || 'generic.jpg' }`} /></p>
                     <p style={{ color: '#999' }}>To change the picture, drag a new picture from your file system onto the box above.</p>
                   </div>
                 </div>
