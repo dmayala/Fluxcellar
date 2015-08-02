@@ -20,4 +20,8 @@ client/dist/
 *.swo
 
 # thumbnails
-Thumbs.db
+Thumbs.db 
+
+# Compiled files
+public/css/*
+public/js/*
