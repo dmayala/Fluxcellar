@@ -11,27 +11,31 @@ import * as wine from './routes/wines';
 
 import React from 'react';
 import Router from 'react-router';
-import reactRoutes from './client/src/js/router/routes';
-import Flux from './client/src/js/utils/flux';
+import reactRoutes from './app/router/routes';
+import Flux from './app/utils/flux';
 
 const app = express();
+
+app.set('port', process.env.PORT || 3000);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
+
 // uncomment after placing your favicon in /public
-//app.use(favicon(__dirname + '/public/favicon.ico'));
+app.use(favicon(__dirname + '/public/favicon.png'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, './client/dist')));
+app.use(express.static(path.join(__dirname, './public')));
+
 
 app.get('/api/wines', wine.findAll);
 app.get('/api/wines/:id', wine.findById);
-app.post('/api/wines', [ multer({ dest: './client/dist/pics' }) ], wine.addWine);
-app.put('/api/wines/:id', [ multer({ dest: './client/dist/pics' }) ], wine.updateWine);
+app.post('/api/wines', [ multer({ dest: './public/pics' }) ], wine.addWine);
+app.put('/api/wines/:id', [ multer({ dest: './public/pics' }) ], wine.updateWine);
 app.delete('/api/wines/:id', wine.deleteWine);
 
 // react router config
@@ -83,5 +87,8 @@ app.use((err, req, res, next) => {
   });
 });
 
+const server = require('http').createServer(app);
 
-export default app;
+server.listen(app.get('port'), () => {
+  console.log(`Express server listening on port ${app.get('port')}`);
+});

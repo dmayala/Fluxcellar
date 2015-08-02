@@ -6,8 +6,7 @@
 node_modules
 
 # bower packages
-client/src/js/vendor/
-client/src/css/vendor/
+bower_components
 
 #dist
 client/dist/

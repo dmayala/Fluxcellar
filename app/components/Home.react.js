@@ -17,7 +17,7 @@ export class Home extends React.Component {
                   Start Browsing<br />
                   Node Cellar
               </Link>
-              <a className="btn btn-default" href="#">
+              <a className="btn btn-default" href="https://github.com/dmayala/Fluxcellar">
                 <img className="pull-left" src="img/github.png" style={{ marginRight: '6px' }} />
                 View Project<br />on GitHub
               </a>
@@ -29,28 +29,13 @@ export class Home extends React.Component {
               <ul className="bs-docs-social-buttons">
                 <li><iframe className="github-btn" frameBorder="0" height="20px"
                 scrolling="0" src=
-                "http://ghbtns.com/github-btn.html?user=ccoenraets&amp;repo=nodecellar&amp;type=watch&amp;count=true"
+                "http://ghbtns.com/github-btn.html?user=dmayala&amp;repo=fluxcellar&amp;type=watch&amp;count=true"
                 width="100px"></iframe></li>
 
                 <li><iframe className="github-btn" frameBorder="0" height="20px"
                 scrolling="0" src=
-                "http://ghbtns.com/github-btn.html?user=ccoenraets&amp;repo=nodecellar&amp;type=fork&amp;count=true"
+                "http://ghbtns.com/github-btn.html?user=dmayala&amp;repo=fluxcellar&amp;type=fork&amp;count=true"
                 width="98px"></iframe></li>
-
-                <li className="follow-btn">
-                  <a className="twitter-follow-button" data-link-color="#0069D6"
-                  data-show-count="true" href="https://twitter.com/ccoenraets"
-                  style={{ display: 'block' }}><iframe style={{ width: '30px', height: '19px', border:
-                  '0px' }}></iframe></a>
-                </li>
-
-                <li className="tweet-btn">
-                  <a className="twitter-share-button" data-count="horizontal" data-url=
-                  "http://coenraets.org:3000" data-via="ccoenraets" href=
-                  "https://twitter.com/share" style={{ display: 'block' }}><iframe style={{ width:
-                  '30px', height: '19px', border: '0px' }}>
-                  </iframe></a>
-                </li>
               </ul>
             </div>
           </div>

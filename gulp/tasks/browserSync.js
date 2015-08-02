@@ -6,7 +6,7 @@ gulp.task('browserSync', ['nodemon', 'build'], () => {
     proxy: 'localhost:3000',
     port: 3001,
     files: [
-      'client/dist/js/app.js'
+      './public'
     ]
   });
 });

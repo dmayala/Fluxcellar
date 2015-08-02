@@ -21,7 +21,7 @@ gulp.task('browserify', () => {
     // required watchify args
     cache: {}, packageCache: {}, fullPaths: true,
     // specify app entry point
-    entries: [ './client/src/js/app.js' ],
+    entries: [ './app/app.js' ],
     // file extensions
     extensions: [ '.js', '.jsx' ],
     // Enable source maps
@@ -40,7 +40,7 @@ gulp.task('browserify', () => {
       // make stream gulp compatible -specify output name
       .pipe(source('app.js'))
       // specify output destination
-      .pipe(gulp.dest('./client/dist/js'))
+      .pipe(gulp.dest('./public/js'))
       // log when bundling completes
       .on('end', bundleLogger.end);
   }

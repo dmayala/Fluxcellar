@@ -17,7 +17,7 @@ export class Paginator extends React.Component {
     });
 
     return (
-      <nav>
+      <nav style={{ textAlign: 'center' }}>
         <ul className="pagination">
           { pages }
         </ul>

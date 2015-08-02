@@ -1,8 +1,7 @@
 import Polyfill from 'babelify/polyfill';
 import Fetch from 'whatwg-fetch';
-import ServerActions from '../actions/ServerActions';
 
-const endpoint = 'api/wines';
+const endpoint = '/api/wines';
 
 export default {
 
@@ -10,7 +9,7 @@ export default {
     try {
       let res = await fetch(`${endpoint}/${id}`);
       let wine = await res.json();
-      ServerActions.receiveWine(wine);
+      return wine;
     } catch (err) {
       throw new Error(err);
     }
@@ -20,7 +19,7 @@ export default {
     try {
       let res = await fetch(endpoint);
       let wines = await res.json();
-      ServerActions.receiveWines(wines);
+      return wines;
     } catch (err) {
       throw new Error(err);
     }

@@ -1,29 +1,32 @@
 import React from 'react';
 import {WineListItem} from './WineListItem.react';
 import {Paginator} from './Paginator.react';
-import WineStore from '../stores/WineStore';
-import WineActions from '../actions/WineActions';
-
-function getState() {
-  return {
-    wines: WineStore.getWines(),
-    pages: WineStore.getPages(),
-    currentPage: WineStore.getCurrentPage()
-  }
-}
 
 export class WineList extends React.Component {
 
-  state = getState();
+  state = this.props.flux
+                    .getStore('wines')
+                    .getState();
 
   static contextTypes = {
     router: React.PropTypes.func.isRequired
   }
 
-  componentDidMount() {
-    WineStore.addChangeListener(this._onChange);
-    WineActions.loadWines();
+  static propTypes = {
+    flux: React.PropTypes.object.isRequired
+  }
+
+  componentWillMount() {
+    this.props.flux
+              .getActions('wines')
+              .loadWines();
     this.updatePage();
+  }
+
+  componentDidMount() {
+    this.props.flux
+              .getStore('wines')
+              .listen(this._onChange);
   }
 
   componentWillReceiveProps() {
@@ -31,16 +34,18 @@ export class WineList extends React.Component {
   }
 
   componentWillUnmount() {
-    WineStore.removeChangeListener(this._onChange);
+    this.props.flux
+              .getStore('wines')
+              .unlisten(this._onChange);
   }
 
   updatePage = () => {
     let id = this.context.router.getCurrentParams().id || 1;
-    WineActions.setCurrentPage(id);
+    this.props.flux.getActions('wines').setCurrentPage(id);
   }
 
-  _onChange = () => {
-    this.setState(getState());
+  _onChange = (state) => {
+    return this.setState(state);
   }
 
   render() {

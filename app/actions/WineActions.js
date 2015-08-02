@@ -1,4 +1,13 @@
-import APIUtils from '../utils/APIUtils';
+let APIUtils = {};
+if (process.browser !== true) {
+  let WineModel = require('../../models/wine');
+  APIUtils ={
+    loadWines: WineModel.findAll,
+    loadWine: WineModel.findById
+  }
+} else {
+  APIUtils = require('../utils/APIUtils');
+}
 
 class WineActions { 
 

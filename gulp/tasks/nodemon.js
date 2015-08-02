@@ -5,12 +5,12 @@ import browserSync from 'browser-sync';
 
 gulp.task('nodemon', () => {
   nodemon({
-    script: './bin/www',
-    ext: 'js html',
-    ignore: [ 'client/*', 'node_modules/*']
+    script: './server',
+    exec: 'babel-node --stage 0 --optional runtime',
+    ignore: [ 'node_modules/*' ]
   }).on('restart', () => {
     setTimeout(() => {
       browserSync.reload({ stream: false });
-    }, 1000);
+    }, 2000);
   });
 });
